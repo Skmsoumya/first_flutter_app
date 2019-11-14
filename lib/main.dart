@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 
-
 import "./question.dart";
 import "./answer.dart";
 
@@ -23,8 +22,33 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     var _questions = [
-      "What's your favourite color?",
-      "What's your favourite animal?",
+      {
+        "question": "What's your favourite color?",
+        "answers": [
+          "Yellow",
+          "Black",
+          "Red",
+          "Orange",
+        ],
+      },
+      {
+        "question": "What's your favourite animal?",
+        "answers": [
+          "Cow",
+          "Elephant",
+          "Snake",
+          "Gorilla",
+        ],
+      },
+      {
+        "question": "What's your favourite food?",
+        "answers": [
+          "Butter Chicken",
+          "Fried Chicken",
+          "Chicken Tikka Masala",
+          "Chicken Biryani",
+        ],
+      },
     ];
 
     void _answerQuestion() {
@@ -41,10 +65,10 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Question(questionText: _questions[_questionIndex]),
-            Answer(callbackFunction: _answerQuestion, answerText: "Answer 1",),
-            Answer(callbackFunction: _answerQuestion, answerText: "Answer 2",),
-            Answer(callbackFunction: _answerQuestion, answerText: "Answer 3",),
+            Question(questionText: _questions[_questionIndex]["question"]),
+            ...(_questions[_questionIndex]["answers"] as List<String> ).map((answer) {
+              return Answer(callbackFunction: _answerQuestion, answerText: answer,);
+            }).toList(),
           ],
         ),
       ),
